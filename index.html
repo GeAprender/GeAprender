@@ -1,59 +1,269 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Teste Hambúrguer</title>
-  <style>
-    body {
-      background: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <title>GeAprender</title>
+    <meta name="description" content="Loja de PDFs exclusivos sobre produtividade, programação e aprendizado digital.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding-top: 140px;
+        }
 
-    /* Botão hambúrguer */
+        /* Menu fixo */
+        nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0; padding: 0;
+        }
+        nav ul li { margin: 0 23px; }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover { text-decoration: underline; }
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Banner */
+        .banner {
+            position: fixed;
+            top: 50px; left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #007BFF, #0056b3);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 999;
+        }
+
+        /* Catálogo */
+        .pdf-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        .pdf-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 22%;          /* cards compactos para caber 4 */
+            min-width: 200px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .pdf-item:hover { transform: scale(1.05); }
+
+        /* Capas maiores */
+        .pdf-item img {
+            width: 85%;          /* aumenta a proporção da capa */
+            max-width: 200px;    /* limite maior */
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .pdf-item .titulo { font-weight: bold; font-size: 15px; }
+        .pdf-item .preco { font-weight: bold; color: #007BFF; font-size: 14px; }
+        .pdf-item .descricao {
+            font-size: 13px; color: #555;
+            text-align: left; margin: 6px 0;
+            line-height: 1.4;
+        }
+        .pdf-item a {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: linear-gradient(90deg, #007BFF, #0056b3);
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 13px;
+        }
+        .pdf-item a:hover {
+            background: linear-gradient(90deg, #0056b3, #003f7f);
+            transform: scale(1.08);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        footer a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+    nav {
+        padding: 8px 12px;              /* reduz o espaço interno */
+        justify-content: space-between; /* logo à esquerda, hambúrguer à direita */
+    }
     .menu-toggle {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 40px;
-      height: 30px;
-      cursor: pointer;
+        display: block;
+        font-size: 30px;                /* aumenta o tamanho do ícone */
+        margin-right: 10px;             /* dá respiro da borda */
     }
-    .menu-toggle span {
-      display: block;
-      height: 4px;
-      width: 100%;
-      background: #fff;
-      border-radius: 2px;
-      transition: all 0.4s ease;
+    nav ul {
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        background-color: #007BFF;
+        position: absolute;
+        top: 50px; left: 0;
+        width: 100%;
+        padding: 0;
+        transition: max-height 0.4s ease-in-out, padding 0.3s ease-in-out;
     }
-
-    /* Estado ativo (vira X) */
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+    nav ul.show {
+        max-height: 300px;
+        padding: 10px 0;
     }
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
+    .pdf-list {
+        flex-direction: column;
+        align-items: center;
     }
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
+    .pdf-item {
+        width: 90%;
+        max-width: 300px;
     }
-  </style>
+    .banner {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+    </style>
 </head>
 <body>
-  <div class="menu-toggle" aria-label="Abrir menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <!-- Menu -->
+    <nav>
+        <div class="logo">📚 GeAprender</div>
+        <div class="menu-toggle" aria-label="Abrir menu">☰</div>
+        <ul>
+            <li><a href="#home">Catálogo</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
 
-  <script>
+    <!-- Banner -->
+    <div class="banner">
+        Aprenda mais, gaste menos — PDFs Exclusivos para você!
+    </div>
+
+    <!-- Catálogo -->
+    <h1 id="home" style="text-align:center; margin-top:40px;">Catálogo</h1>
+    <div class="pdf-list">
+        <div class="pdf-item">
+            <img src="Guia Prático do Iniciante Digital.png" alt="Guia Prático do Iniciante Digital" loading="lazy">
+            <p class="titulo">Guia Prático do Iniciante Digital</p>
+            <p class="preco">R$ 27,90</p>
+            <p class="descricao">✅ Aprenda passo a passo<br>✅ Evite erros comuns<br>✅ Ganhe confiança no digital</p>
+            <a href="https://pay.kiwify.com.br/XH94Lee" target="_blank">Comprar PDF</a>
+        </div>
+        <div class="pdf-item">
+            <img src="Vencendo a Procrastinação.png" alt="Vencendo a Procrastinação" loading="lazy">
+            <p class="titulo">Vencendo a Procrastinação</p>
+            <p class="preco">R$ 19,90</p>
+            <p class="descricao">✅ Técnicas comprovadas<br>✅ Exercícios práticos<br>✅ Aumente sua produtividade</p>
+            <a href="https://pay.kiwify.com.br/zmnYQDn" target="_blank">Comprar PDF</a>
+        </div>
+        <div class="pdf-item">
+            <img src="programacao.webp" alt="Manual de Programação" loading="lazy">
+            <p class="titulo">Manual de Programação</p>
+            <p class="preco">R$ 39,90</p>
+            <p class="descricao">✅ Lógica de programação<br>✅ Exemplos claros<br>✅ Desenvolva seus primeiros projetos</p>
+            <a href="https://seulink.com/pdf3" target="_blank">Comprar PDF</a>
+        </div>
+        <div class="pdf-item">
+            <img src="novo-produto.png" alt="Novo Produto" loading="lazy">
+            <p class="titulo">Novo Produto</p>
+            <p class="preco">R$ 29,90</p>
+            <p class="descricao">✅ Conteúdo exclusivo<br>✅ Fácil de aplicar<br>✅ Ideal para iniciantes</p>
+            <a href="https://seulink.com/pdf4" target="_blank">Comprar PDF</a>
+        </div>
+    </div>
+
+    <!-- Sobre -->
+    <section id="sobre" style="max-width:800px; margin:40px auto; text-align:center;">
+        <h2>Sobre</h2>
+        <p>Bem-vindo à GeAprender! Aqui você encontra Materiais Exclusivos para Estudo, produtividade, leitura, desenvolvimento pessoal e muito mais.</p>
+    </section>
+
+    <!-- Contato -->
+        <!-- Contato -->
+    <section id="contato" style="max-width:800px; margin:40px auto; text-align:center;">
+        <h2>Contato</h2>
+        <p>Entre em contato pelo e-mail: <strong>gedeon19991@outlook.com</strong></p>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 GeAprender - Todos os direitos reservados</p>
+        <p>
+            <a href="#home">Catálogo</a> | 
+            <a href="#sobre">Sobre</a> | 
+            <a href="#contato">Contato</a>
+        </p>
+    </footer>
+
+    <!-- Script do menu -->
+    <script>
     const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('nav ul');
+
     menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('show');
+        // alterna o ícone entre ☰ e ✖
+        if (navLinks.classList.contains('show')) {
+            menuToggle.textContent = "✖";
+        } else {
+            menuToggle.textContent = "☰";
+        }
     });
-  </script>
+</script>
 </body>
 </html>
+       
