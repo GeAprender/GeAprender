@@ -36,7 +36,7 @@
             display: flex;
             margin: 0; padding: 0;
         }
-        nav ul li { margin: 0 24px; }
+        nav ul li { margin: 0 23px; }
         nav ul li a {
             color: #fff;
             text-decoration: none;
@@ -45,7 +45,7 @@
         nav ul li a:hover { text-decoration: underline; }
         .menu-toggle {
             display: none;
-            font-size: 28px;
+            font-size: 26px;
             color: #fff;
             cursor: pointer;
         }
@@ -69,7 +69,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             max-width: 1200px;
             margin: 20px auto;
         }
@@ -77,36 +77,43 @@
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
-            width: 30%;
-            min-width: 250px;
+            width: 22%;          /* cards compactos para caber 4 */
+            min-width: 200px;
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.2s;
         }
         .pdf-item:hover { transform: scale(1.05); }
+
+        /* Capas maiores */
         .pdf-item img {
-            width: 100%;
+            width: 85%;          /* aumenta a proporção da capa */
+            max-width: 200px;    /* limite maior */
             height: auto;
+            margin: 0 auto;
+            display: block;
             border-radius: 5px;
         }
-        .pdf-item .titulo { font-weight: bold; font-size: 16px; }
-        .pdf-item .preco { font-weight: bold; color: #007BFF; }
+
+        .pdf-item .titulo { font-weight: bold; font-size: 15px; }
+        .pdf-item .preco { font-weight: bold; color: #007BFF; font-size: 14px; }
         .pdf-item .descricao {
-            font-size: 14px; color: #555;
-            text-align: left; margin: 8px 0;
+            font-size: 13px; color: #555;
+            text-align: left; margin: 6px 0;
             line-height: 1.4;
         }
         .pdf-item a {
             display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
+            margin-top: 8px;
+            padding: 8px 12px;
             background: linear-gradient(90deg, #007BFF, #0056b3);
             color: #fff;
             font-weight: bold;
             text-decoration: none;
             border-radius: 5px;
             transition: background 0.3s, transform 0.2s;
+            font-size: 13px;
         }
         .pdf-item a:hover {
             background: linear-gradient(90deg, #0056b3, #003f7f);
@@ -130,23 +137,42 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
-            nav ul {
-                max-height: 0;
-                overflow: hidden;
-                flex-direction: column;
-                background-color: #007BFF;
-                position: absolute;
-                top: 50px; left: 0;
-                width: 100%;
-                padding: 0;
-                transition: max-height 0.4s ease-in-out, padding 0.3s ease-in-out;
-            }
-            nav ul.show { max-height: 300px; padding: 10px 0; }
-            .menu-toggle { display: block; }
-            .pdf-list { flex-direction: column; align-items: center; }
-            .pdf-item { width: 90%; }
-            .banner { font-size: 14px; padding: 12px; }
-        }
+    nav {
+        padding: 8px 12px;              /* reduz o espaço interno */
+        justify-content: space-between; /* logo à esquerda, hambúrguer à direita */
+    }
+    .menu-toggle {
+        display: block;
+        font-size: 30px;                /* aumenta o tamanho do ícone */
+        margin-right: 10px;             /* dá respiro da borda */
+    }
+    nav ul {
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        background-color: #007BFF;
+        position: absolute;
+        top: 50px; left: 0;
+        width: 100%;
+        padding: 0;
+        transition: max-height 0.4s ease-in-out, padding 0.3s ease-in-out;
+    }
+    nav ul.show {
+        max-height: 300px;
+        padding: 10px 0;
+    }
+    .pdf-list {
+        flex-direction: column;
+        align-items: center;
+    }
+    .pdf-item {
+        width: 90%;
+    }
+    .banner {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
     </style>
 </head>
 <body>
@@ -190,15 +216,23 @@
             <p class="descricao">✅ Lógica de programação<br>✅ Exemplos claros<br>✅ Desenvolva seus primeiros projetos</p>
             <a href="https://seulink.com/pdf3" target="_blank">Comprar PDF</a>
         </div>
+        <div class="pdf-item">
+            <img src="novo-produto.png" alt="Novo Produto" loading="lazy">
+            <p class="titulo">Novo Produto</p>
+            <p class="preco">R$ 29,90</p>
+            <p class="descricao">✅ Conteúdo exclusivo<br>✅ Fácil de aplicar<br>✅ Ideal para iniciantes</p>
+            <a href="https://seulink.com/pdf4" target="_blank">Comprar PDF</a>
+        </div>
     </div>
 
     <!-- Sobre -->
     <section id="sobre" style="max-width:800px; margin:40px auto; text-align:center;">
         <h2>Sobre</h2>
-        <p>Bem-vindo à GeAprender ! Aqui você encontra Materiais Exclusivos para Estudo, produtividade,Leitura, desenvolvimento pessoal e Muito Mais.</p>
+        <p>Bem-vindo à GeAprender! Aqui você encontra Materiais Exclusivos para Estudo, produtividade, leitura, desenvolvimento pessoal e muito mais.</p>
     </section>
 
     <!-- Contato -->
+        <!-- Contato -->
     <section id="contato" style="max-width:800px; margin:40px auto; text-align:center;">
         <h2>Contato</h2>
         <p>Entre em contato pelo e-mail: <strong>gedeon19991@outlook.com</strong></p>
@@ -216,12 +250,13 @@
 
     <!-- Script do menu -->
     <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('nav ul');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('nav ul');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-    });
-</script>
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
+       
