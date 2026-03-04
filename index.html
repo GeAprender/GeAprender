@@ -167,6 +167,7 @@
     }
     .pdf-item {
         width: 90%;
+        max-width: 300px;
     }
     .banner {
         font-size: 14px;
@@ -250,13 +251,19 @@
 
     <!-- Script do menu -->
     <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('nav ul');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('nav ul');
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
-    </script>
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+        // alterna o ícone entre ☰ e ✖
+        if (navLinks.classList.contains('show')) {
+            menuToggle.textContent = "✖";
+        } else {
+            menuToggle.textContent = "☰";
+        }
+    });
+</script>
 </body>
 </html>
        
